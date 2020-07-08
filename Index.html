@@ -9,8 +9,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>Cafofo</title>
+    
+    <link rel="stylesheet" href="style.css"
+    >
+    <title>PokeStoper Store</title>
     <link rel="icon" type="image/gif" sizes="16x16" href="https://img.icons8.com/bubbles/2x/home.png" />
     <style>
         <style>@media(min-width: 768px) {
@@ -38,9 +40,9 @@
 </head>
 
 <body>
-    <div class="container-xl" style="height:100vh">
+    <div style="height:100vh">
         <!-- NavBar -->
-        <nav class="navbar sticky-top navbar-light bg-dark">
+        <nav class="navbar sticky-top navbar-light bg-danger">
             <a class="navbar-brand" href="index.html">
                 <img src="https://img.icons8.com/bubbles/2x/home.png" width="40" height="40"
                     class="d-inline-block align-top text-light" alt="logo">
@@ -78,10 +80,8 @@
         </section>
     </div>
         <!--Cards-->
-        <div id="Pokes" class="container-fluid mt-4 mb-4">
-            <div class="row">
+        <div id="Pokes" id="poke-container" class="mt-4 mb-4 poke-container">
             <script src="PokeApi.js"></script>
-            </div>
         </div>
     </div>
     <!--Pagination-->

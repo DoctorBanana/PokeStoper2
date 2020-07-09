@@ -43,17 +43,17 @@ function createPokemonCard(pokemon) {
   const poke_types = pokemon.types.map((type) => type.type.name);
   const type = main_types.find((type) => poke_types.indexOf(type) > -1);
   const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
-  const price = pokemon.base_experience;
+  const xp = pokemon.base_experience;
   const color = colors[type];
 
   pokemonEl.style.backgroundColor = color;
 
   const pokeInnerHTML = `
-        <div class="img-container">
+        <span class="img-container">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
               pokemon.id
             }.png" alt="${name}" />
-        </div>
+        </span>
         <div class="info">
             <span class="number">#${pokemon.id
               .toString()
@@ -61,8 +61,8 @@ function createPokemonCard(pokemon) {
             <h3 class="name">${name}</h3>
             <small class="type">Type: <span>${type}</span></small> </p>
             <img width="20" height="20" src="https://vignette.wikia.nocookie.net/pokemongohelp/images/9/99/Pokecoin1.png/revision/latest/scale-to-width-down/340?cb=20160923165335" />
-            <span class="text-sm-center">P$${price}</span> </p>
-            <button type="button" class="btn btn-danger btn-sm shopAddButton">Capturar no carrinho</button>
+            <span class="text-sm-center">P$${xp}</span> </p>
+            <button type="button" class="btn btn-danger btn-sm shop-item-button">Capturar no carrinho</button>
         </div>
         `;
 
@@ -121,17 +121,19 @@ function quantityChanged(event) {
 function addToCartClicked(event) {
   var button = event.target;
   var shopItem = button.parentElement.parentElement;
-  var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText;
-  var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText;
-  addItemToCart(title, price);
+  var title = shopItem.getElementsByClassName('cart-item-title')[0].innerText;
+  var price = shopItem.getElementsByClassName('text-sm-center')[0].innerText;
+
   updateCartTotal();
 }
 
 function addItemToCart(title, price) {
+  const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+  const xp = pokemon.base_experience;
   var cartRow = document.createElement('div');
   cartRow.classList.add('cart-row');
-  var cartItems = document.getElementsByClassName('cart-items')[0];
-  var cartItemNames = cartItems.getElementsByClassName('cart-item-title');
+  var cartItems = document.getElementsByClassName('name')[0];
+  var cartItemNames = cartItems.getElementsByClassName('xp');
   for (var i = 0; i < cartItemNames.length; i++) {
     if (cartItemNames[i].innerText == title) {
       alert('Este pokemon já está capturado');
@@ -140,18 +142,17 @@ function addItemToCart(title, price) {
   }
   var cartRowContents = `
         <div class="cart-item cart-column">
-            <img class="cart-item-image" src="${imageSrc}" width="100" height="100">
-            <span class="cart-item-title">${title}</span>
+            <span class="cart-item-title">${name}</span>
         </div>
-        <span class="cart-price cart-column">${price}</span>
+        <span class="cart-price cart-column">${xp}</span>
         <div class="cart-quantity cart-column">
             <input class="cart-quantity-input" type="number" value="1">
-            <button class="btn btn-danger" type="button">REMOVE</button>
+            <button class="btn btn-warning btn-sm" type="button">Remover</button>
         </div>`;
   cartRow.innerHTML = cartRowContents;
   cartItems.append(cartRow);
   cartRow
-    .getElementsByClassName('btn-danger')[0]
+    .getElementsByClassName('btn-warning')[0]
     .addEventListener('click', removeCartItem);
   cartRow
     .getElementsByClassName('cart-quantity-input')[0]
